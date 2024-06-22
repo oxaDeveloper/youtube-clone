@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Category from "~/components/Category";
 
 export default function Home() {
   return (
@@ -16,7 +17,9 @@ export default function Home() {
         />
       </Head>
 
-      <main className="flex flex-col items-center justify-center"></main>
+      <main className="flex flex-col px-6 pt-2">
+        <Category />
+      </main>
     </>
   );
 }
