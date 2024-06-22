@@ -25,7 +25,7 @@ const categories = [
 
 const Category = () => {
   return (
-    <div className="flex w-[78vw] gap-2 overflow-x-auto pb-5">
+    <div className="flex w-[78vw] gap-3 overflow-x-auto pb-5">
       {categories.map((category, idx) => (
         <p
           key={idx}
