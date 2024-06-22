@@ -17,7 +17,7 @@ const LeftBar = ({ shortMenu }: { shortMenu: boolean }) => {
       className={`flex max-h-[93vh] flex-col overflow-auto ${!shortMenu ? "p-1" : "items-start"}`}
     >
       <div
-        className={`flex cursor-pointer items-center rounded-xl hover:bg-[#3f3f3f] ${!shortMenu ? "w-16 flex-col justify-center py-4" : "mx-[15px] w-[14rem] justify-start gap-6 px-2 py-2"}`}
+        className={`flex cursor-pointer items-center rounded-xl bg-[#3f3f3f] hover:bg-[#5a5a5a] ${!shortMenu ? "w-16 flex-col justify-center py-4" : "mx-[15px] w-[14rem] justify-start gap-6 px-2 py-2"}`}
       >
         <HomeIcon sx={{ color: "white", fontSize: 30 }} />
         <span
