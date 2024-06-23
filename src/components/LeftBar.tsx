@@ -20,7 +20,7 @@ const LeftBar = ({
 }) => {
   return (
     <div
-      className={`flex max-h-[93vh] flex-col overflow-auto ${shortMenu ? "p-1" : "items-start"}`}
+      className={`fixed left-0 flex max-h-[93vh] flex-col overflow-auto ${shortMenu ? "top-16 p-1" : "bottom-0 items-start"}`}
     >
       <div
         className={`flex cursor-pointer items-center rounded-xl ${shortMenu ? "w-16 flex-col justify-center py-4 hover:bg-[#3f3f3f]" : "mx-[15px] w-[14rem] justify-start gap-6 bg-[#3f3f3f] px-2 py-2 hover:bg-[#5a5a5a]"}`}

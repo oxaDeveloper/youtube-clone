@@ -1,29 +1,42 @@
 import { db } from "~/server/db";
 
 export const createVideo = async ({
-  photo,
+  image,
   time,
   title,
-  view,
+  userId,
 }: {
-  photo: string;
+  image: string;
   time: string;
   title: string;
-  view: string;
+  userId: string;
 }) => {
   const video = await db.video.create({
     data: {
-      photo,
+      image,
       time,
       title,
-      view,
+      userId,
     },
   });
 
   return video;
 };
 
+export const deleteVideo = async (id: string) => {
+  const video = await db.video.delete({
+    where: {
+      id,
+    },
+  });
+  return video;
+};
+
 export const getAllVideos = async () => {
-  const videos = await db.video.findMany();
+  const videos = await db.video.findMany({
+    include: {
+      user: true,
+    },
+  });
   return videos;
 };

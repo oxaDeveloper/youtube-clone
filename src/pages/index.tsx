@@ -2,7 +2,13 @@ import Head from "next/head";
 import Category from "~/components/Category";
 import Video from "~/components/Video";
 
-export default function Home({ shortMenu }: { shortMenu: boolean }) {
+export default function Home({
+  shortMenu,
+  videos,
+}: {
+  shortMenu: boolean;
+  videos: any;
+}) {
   return (
     <>
       <Head>
@@ -19,12 +25,14 @@ export default function Home({ shortMenu }: { shortMenu: boolean }) {
       </Head>
 
       <main
-        className={`flex flex-col px-6 pt-2 ${shortMenu ? "w-[85rem]" : "w-[73rem]"}`}
+        className={`mt-28 flex flex-col px-6 ${shortMenu ? "w-[85rem]" : "w-[73rem]"}`}
       >
         <Category shortMenu={shortMenu} />
 
         <div className={`flex w-full flex-wrap gap-x-5 gap-y-10 py-5`}>
-          <Video shortMenu={shortMenu} />
+          {videos?.map((video: any) => (
+            <Video key={video.id} shortMenu={shortMenu} {...video} />
+          ))}
         </div>
       </main>
     </>

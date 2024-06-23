@@ -26,7 +26,7 @@ const categories = [
 const Category = ({ shortMenu }: { shortMenu: boolean }) => {
   return (
     <div
-      className={`flex gap-3 overflow-x-auto pb-5 ${shortMenu ? "w-[91vw]" : "w-[78vw]"}`}
+      className={`fixed top-14 z-30 flex gap-3 overflow-x-auto bg-[#0f0f0f] py-3 ${shortMenu ? "w-[91vw]" : "w-[78vw]"}`}
     >
       {categories.map((category, idx) => (
         <p

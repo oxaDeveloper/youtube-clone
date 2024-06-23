@@ -7,6 +7,16 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+model Video {
+    id        String   @id @default(cuid())
+    image     String
+    time      String
+    title     String
+    createdAt DateTime @default(now())
+    userId    String
+    user      User     @relation(fields: [userId], references: [id])
+}
+
 model Account {
     id                String  @id @default(cuid())
     userId            String  @map("user_id")
@@ -47,6 +57,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Video         Video[]
 
     @@map("users")
 }

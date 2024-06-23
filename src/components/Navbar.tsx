@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import SignInButton from "./SignInButton";
+import VideoUpload from "./VideoUpload";
+import { signOut } from "next-auth/react";
 // Icons
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
@@ -9,19 +11,22 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
-import { signOut } from "next-auth/react";
+import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 
 const Navbar = ({
   setShortMenu,
   session,
+  fetchVideos,
 }: {
   setShortMenu: Function;
   session: any;
+  fetchVideos: Function;
 }) => {
   const [profileBar, setProfileBar] = useState(false);
+  const [isVideoUpload, setIsVideoUpload] = useState(false);
 
   return (
-    <div className="flex w-full items-center justify-between px-6 py-2">
+    <div className="fixed z-30 flex w-full items-center justify-between bg-[#0f0f0f] px-6 py-2">
       <div className="flex items-center gap-6">
         <MenuIcon
           sx={{ color: "white", cursor: "pointer" }}
@@ -84,7 +89,7 @@ const Navbar = ({
             />
 
             {profileBar && (
-              <div className="absolute right-4 top-12 rounded-xl bg-[#3f3f3f]">
+              <div className="absolute right-4 top-12 z-30 rounded-xl bg-[#3f3f3f]">
                 <div className="flex items-start gap-4 p-4">
                   <Image
                     src={session.user.image}
@@ -112,14 +117,26 @@ const Navbar = ({
 
                 <div className="w-full border border-[#787878]" />
 
-                <div
-                  className={`my-2 flex cursor-pointer items-center justify-start gap-4 bg-[#3f3f3f] px-5 py-2 hover:bg-[#5a5a5a]`}
-                  onClick={() => signOut()}
-                >
-                  <ExitToAppOutlinedIcon
-                    sx={{ color: "white", fontSize: 30 }}
-                  />
-                  <span className={`text-sm text-white`}>Sign out</span>
+                <div className="my-2">
+                  <div
+                    className={`flex cursor-pointer items-center justify-start gap-4 bg-[#3f3f3f] px-5 py-2 hover:bg-[#5a5a5a]`}
+                    onClick={() => setIsVideoUpload(true)}
+                  >
+                    <CloudUploadOutlinedIcon
+                      sx={{ color: "white", fontSize: 30 }}
+                    />
+                    <span className={`text-sm text-white`}>Upload video</span>
+                  </div>
+
+                  <div
+                    className={`flex cursor-pointer items-center justify-start gap-4 bg-[#3f3f3f] px-5 py-2 hover:bg-[#5a5a5a]`}
+                    onClick={() => signOut()}
+                  >
+                    <ExitToAppOutlinedIcon
+                      sx={{ color: "white", fontSize: 30 }}
+                    />
+                    <span className={`text-sm text-white`}>Sign out</span>
+                  </div>
                 </div>
               </div>
             )}
@@ -134,6 +151,14 @@ const Navbar = ({
           </>
         )}
       </div>
+
+      <VideoUpload
+        isVideoUpload={isVideoUpload}
+        setIsVideoUpload={setIsVideoUpload}
+        session={session}
+        fetchVideos={fetchVideos}
+        setProfileBar={setProfileBar}
+      />
     </div>
   );
 };
