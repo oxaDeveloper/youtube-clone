@@ -31,7 +31,7 @@ const Category = ({ shortMenu }: { shortMenu: boolean }) => {
       {categories.map((category, idx) => (
         <p
           key={idx}
-          className="cursor-pointer text-nowrap rounded-lg bg-[#3f3f3f] px-4 py-2 text-sm text-white"
+          className={`cursor-pointer text-nowrap rounded-lg px-3.5 py-1.5 text-sm ${idx === 0 ? "bg-white text-black" : "bg-[#3f3f3f] text-white"}`}
         >
           {category}
         </p>

@@ -18,11 +18,13 @@ export default function Home({ shortMenu }: { shortMenu: boolean }) {
         />
       </Head>
 
-      <main className="flex flex-col px-6 pt-2">
+      <main
+        className={`flex flex-col px-6 pt-2 ${shortMenu ? "w-[85rem]" : "w-[73rem]"}`}
+      >
         <Category shortMenu={shortMenu} />
 
-        <div className={`grid ${shortMenu ? "grid-cols-4" : "grid-cols-3"}`}>
-          <Video />
+        <div className={`flex w-full flex-wrap gap-x-5 gap-y-10 py-5`}>
+          <Video shortMenu={shortMenu} />
         </div>
       </main>
     </>
