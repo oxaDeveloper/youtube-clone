@@ -23,9 +23,11 @@ const categories = [
   "Watched",
 ];
 
-const Category = () => {
+const Category = ({ shortMenu }: { shortMenu: boolean }) => {
   return (
-    <div className="flex w-[78vw] gap-3 overflow-x-auto pb-5">
+    <div
+      className={`flex gap-3 overflow-x-auto pb-5 ${shortMenu ? "w-[91vw]" : "w-[78vw]"}`}
+    >
       {categories.map((category, idx) => (
         <p
           key={idx}

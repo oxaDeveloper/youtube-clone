@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Category from "~/components/Category";
+import Video from "~/components/Video";
 
-export default function Home() {
+export default function Home({ shortMenu }: { shortMenu: boolean }) {
   return (
     <>
       <Head>
@@ -18,7 +19,11 @@ export default function Home() {
       </Head>
 
       <main className="flex flex-col px-6 pt-2">
-        <Category />
+        <Category shortMenu={shortMenu} />
+
+        <div className={`grid ${shortMenu ? "grid-cols-4" : "grid-cols-3"}`}>
+          <Video />
+        </div>
       </main>
     </>
   );

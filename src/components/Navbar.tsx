@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import SignInButton from "./SignInButton";
 // Icons
@@ -6,8 +6,20 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
+import { signOut } from "next-auth/react";
 
-const Navbar = ({ setShortMenu }: { setShortMenu: Function }) => {
+const Navbar = ({
+  setShortMenu,
+  session,
+}: {
+  setShortMenu: Function;
+  session: any;
+}) => {
+  const [profileBar, setProfileBar] = useState(false);
+
   return (
     <div className="flex w-full items-center justify-between px-6 py-2">
       <div className="flex items-center gap-6">
@@ -49,12 +61,78 @@ const Navbar = ({ setShortMenu }: { setShortMenu: Function }) => {
         </div>
       </div>
 
-      <div className="flex gap-2">
-        <div className="cursor-pointer rounded-full px-2.5 py-2 hover:bg-[#222222]">
-          <MoreVertIcon sx={{ color: "white" }} />
-        </div>
+      <div className={`flex items-center ${session ? "gap-5" : "gap-2"}`}>
+        {session ? (
+          <>
+            <div className="flex items-center gap-3">
+              <div className="cursor-pointer rounded-full p-2 hover:bg-[#222222]">
+                <VideocamOutlinedIcon sx={{ color: "white" }} />
+              </div>
 
-        <SignInButton />
+              <div className="cursor-pointer rounded-full p-2 hover:bg-[#222222]">
+                <NotificationsOutlinedIcon sx={{ color: "white" }} />
+              </div>
+            </div>
+
+            <Image
+              src={session.user.image}
+              alt=""
+              width={35}
+              height={35}
+              className="cursor-pointer rounded-full"
+              onClick={() => setProfileBar((profileBar) => !profileBar)}
+            />
+
+            {profileBar && (
+              <div className="absolute right-4 top-12 rounded-xl bg-[#3f3f3f]">
+                <div className="flex items-start gap-4 p-4">
+                  <Image
+                    src={session.user.image}
+                    alt=""
+                    width={45}
+                    height={45}
+                    className="cursor-pointer rounded-full"
+                  />
+
+                  <div className="grid gap-3">
+                    <div>
+                      <h1 className="text-base font-medium text-white">
+                        {session.user.name}
+                      </h1>
+                      <p className="text-sm font-medium text-white">
+                        {session.user.email}
+                      </p>
+                    </div>
+
+                    <span className="cursor-pointer text-sm text-[#147aff] hover:text-[#4093ff]">
+                      View your channel
+                    </span>
+                  </div>
+                </div>
+
+                <div className="w-full border border-[#787878]" />
+
+                <div
+                  className={`my-2 flex cursor-pointer items-center justify-start gap-4 bg-[#3f3f3f] px-5 py-2 hover:bg-[#5a5a5a]`}
+                  onClick={() => signOut()}
+                >
+                  <ExitToAppOutlinedIcon
+                    sx={{ color: "white", fontSize: 30 }}
+                  />
+                  <span className={`text-sm text-white`}>Sign out</span>
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <div className="cursor-pointer rounded-full px-2.5 py-2 hover:bg-[#222222]">
+              <MoreVertIcon sx={{ color: "white" }} />
+            </div>
+
+            <SignInButton />
+          </>
+        )}
       </div>
     </div>
   );
