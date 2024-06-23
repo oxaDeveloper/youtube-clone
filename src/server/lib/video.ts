@@ -34,6 +34,10 @@ export const deleteVideo = async (id: string) => {
 
 export const getAllVideos = async () => {
   const videos = await db.video.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+
     include: {
       user: true,
     },
